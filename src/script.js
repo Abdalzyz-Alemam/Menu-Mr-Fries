@@ -1,7 +1,7 @@
 import { menuData } from './menuData.js';
 
 // --- State Management ---
-let currentLang = 'en'; // 'en' or 'ar'
+let currentLang = 'ar'; // Default to Arabic
 let currentCategory = 'all';
 let searchQuery = '';
 let isDarkMode = false;
@@ -15,7 +15,7 @@ const translations = {
     searchLabel: "Search Menu",
     searchPlaceholder: "What are you craving?",
     noResults: "No items found matching your search.",
-    orderWhatsapp: "Order via WhatsApp",
+    devBy: 'Developed by <a href="https://menutop.vercel.app" target="_blank" rel="noopener noreferrer" class="font-bold text-orange-500 hover:underline">MenuTop</a>',
     footerDesc: "Mr. Fries... Irresistible Taste",
     currency: "SDG"
   },
@@ -26,7 +26,7 @@ const translations = {
     searchLabel: "البحث في القائمة",
     searchPlaceholder: "ماذا تشتهي اليوم؟",
     noResults: "لم يتم العثور على نتائج تطابق بحثك.",
-    orderWhatsapp: "اطلب عبر واتساب",
+    devBy: 'تم التطوير بواسطة <a href="https://menutop.vercel.app" target="_blank" rel="noopener noreferrer" class="font-bold text-orange-500 hover:underline">منيو توب</a>',
     footerDesc: "مستر فرايز ... طعم لا يقاوم",
     currency: "ج.س"
   }
@@ -48,12 +48,16 @@ const heroTitle = document.getElementById('hero-title');
 const heroSubtitle = document.getElementById('hero-subtitle');
 const searchLabel = document.getElementById('search-label');
 const noResultsMsg = document.getElementById('no-results-msg');
-const whatsappBtnText = document.getElementById('whatsapp-btn-text');
+const developerCredit = document.getElementById('developer-credit');
 const footerTitle = document.getElementById('footer-title');
 const footerDesc = document.getElementById('footer-desc');
 
 // --- Initialization ---
 function init() {
+  // Set Arabic as default direction and language
+  document.documentElement.dir = 'rtl';
+  document.documentElement.lang = 'ar';
+  
   renderCategories();
   renderMenu();
   updateUILanguage();
@@ -111,7 +115,7 @@ function updateUILanguage() {
   searchLabel.textContent = t.searchLabel;
   searchInput.placeholder = t.searchPlaceholder;
   noResultsMsg.textContent = t.noResults;
-  whatsappBtnText.textContent = t.orderWhatsapp;
+  developerCredit.innerHTML = t.devBy;
   footerTitle.textContent = t.brand;
   footerDesc.textContent = t.footerDesc;
 }
@@ -120,7 +124,7 @@ function renderCategories() {
   categoryFilters.innerHTML = '';
   menuData.categories.forEach(cat => {
     const btn = document.createElement('button');
-    btn.className = `rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+    btn.className = `whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition-all shrink-0 ${
       currentCategory === cat.id 
       ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' 
       : 'bg-white text-slate-600 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
@@ -162,22 +166,30 @@ function renderMenu() {
 
 function createMenuCard(item, index) {
   const div = document.createElement('div');
-  div.className = 'menu-card group overflow-hidden rounded-3xl bg-white p-2 shadow-sm border border-slate-100 dark:bg-slate-900 dark:border-slate-800 animate-fade-in';
+  div.className = 'menu-card group overflow-hidden rounded-2xl bg-white p-1.5 shadow-sm border border-slate-100 dark:bg-slate-900 dark:border-slate-800 animate-fade-in';
   div.style.animationDelay = `${index * 0.05}s`;
   
   const langData = item[currentLang];
   const t = translations[currentLang];
   
   div.innerHTML = `
-    <div class="relative h-56 w-full overflow-hidden rounded-2xl">
-      <img src="${item.image}" alt="${langData.name}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
-      <div class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold shadow-sm backdrop-blur-sm dark:bg-slate-900/90">
+    <div class="relative h-40 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800 md:h-56">
+      <!-- Loading Skeleton -->
+      <div class="absolute inset-0 animate-pulse-slow bg-slate-200 dark:bg-slate-700"></div>
+      
+      <img src="${item.image}" 
+           alt="${langData.name}" 
+           class="relative z-10 h-full w-full object-cover opacity-0 transition-all duration-700 group-hover:scale-110" 
+           loading="lazy"
+           onload="this.classList.remove('opacity-0'); this.previousElementSibling.style.display='none';">
+           
+      <div class="absolute right-2 top-2 z-20 rounded-full bg-white/90 px-2 py-0.5 text-xs font-bold shadow-sm backdrop-blur-sm dark:bg-slate-900/90 md:right-3 md:top-3 md:px-3 md:py-1 md:text-sm">
         ${currentLang === 'en' ? t.currency + ' ' + item.price.toFixed(3) : item.price.toFixed(3) + ' ' + t.currency}
       </div>
     </div>
-    <div class="p-4">
-      <h3 class="mb-2 text-xl font-bold tracking-tight">${langData.name}</h3>
-      <p class="text-sm leading-relaxed text-slate-500 dark:text-slate-400">${langData.description}</p>
+    <div class="p-3">
+      <h3 class="mb-1 text-sm font-bold tracking-tight md:text-lg">${langData.name}</h3>
+      <p class="line-clamp-2 text-[10px] leading-tight text-slate-500 dark:text-slate-400 md:text-sm md:leading-relaxed">${langData.description}</p>
     </div>
   `;
   
