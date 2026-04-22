@@ -1,7 +1,7 @@
 export const menuData = {
   categories: [
     { id: "all", en: "All", ar: "الكل" },
-    { id: "fatayer", en: "Fatayer", ar: "الفطائر المميزة" },
+    { id: "fatayer", en: "Fatayer", ar: "الفطائر الشامية" },
     { id: "pizza", en: "Pizza", ar: "البيتزا" },
     { id: "juices", en: "Juices", ar: "العصائر" }
   ],
@@ -12,7 +12,7 @@ export const menuData = {
       category: "fatayer",
       price: 12.000,
       en: { name: "Qunaif Fatayer", description: "Our signature Qunaif-style Levant pie." },
-      ar: { name: "فطيرة مميزة قنيف", description: "فطيرة قنيف الخاصة بالطعم المميز الأصيل." },
+      ar: { name: "فطيرة شامية قنيف", description: "فطيرة قنيف الخاصة بالطعم الشامي الأصيل." },
       image: "https://images.unsplash.com/photo-1593504049359-74330189a355?q=80&w=500&auto=format&fit=crop"
     },
     {
@@ -20,7 +20,7 @@ export const menuData = {
       category: "fatayer",
       price: 12.000,
       en: { name: "Hot Dog Fatayer", description: "Levant pie stuffed with savory hot dog slices." },
-      ar: { name: "فطيرة مميزة هوت دوغ", description: "فطيرة مميزة محشوة بقطع الهوت دوغ." },
+      ar: { name: "فطيرة شامية هوت دوغ", description: "فطيرة مميزة محشوة بقطع الهوت دوغ." },
       image: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?q=80&w=500&auto=format&fit=crop"
     },
     {
@@ -28,7 +28,7 @@ export const menuData = {
       category: "fatayer",
       price: 12.000,
       en: { name: "Chicken Fatayer", description: "Shami pie with tender chicken filling." },
-      ar: { name: "فطيرة مميزة فراخ (دجاج)", description: "فطيرة مميزة محشوة بقطع الدجاج المتبل." },
+      ar: { name: "فطيرة شامية فراخ (دجاج)", description: "فطيرة مميزة محشوة بقطع الدجاج المتبل." },
       image: "https://images.unsplash.com/photo-1619531043553-997782b13735?q=80&w=500&auto=format&fit=crop"
     },
     {
@@ -36,7 +36,7 @@ export const menuData = {
       category: "fatayer",
       price: 12.000,
       en: { name: "Meat Fatayer", description: "Delicious pie stuffed with seasoned minced meat." },
-      ar: { name: "فطيرة مميزة لحمة", description: "فطيرة مميزة غنية باللحم المفروم والمبهر." },
+      ar: { name: "فطيرة شامية لحمة", description: "فطيرة مميزة غنية باللحم المفروم والمبهر." },
       image: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=500&auto=format&fit=crop"
     },
     {
@@ -44,7 +44,7 @@ export const menuData = {
       category: "fatayer",
       price: 12.000,
       en: { name: "Vegetable Fatayer", description: "Healthy pie filled with a fresh vegetable mix." },
-      ar: { name: "فطيرة مميزة خضار", description: "فطيرة مميزة خفيفة محشوة بمشكل الخضروات." },
+      ar: { name: "فطيرة شامية خضار", description: "فطيرة مميزة خفيفة محشوة بمشكل الخضروات." },
       image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop"
     },
 
