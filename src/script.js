@@ -9,25 +9,25 @@ let isDarkMode = false;
 // --- UI Strings ---
 const translations = {
   en: {
-    brand: "MR. FRIES",
-    heroTitle: 'MR. FRIES... <span class="text-orange-500">Irresistible</span> Taste.',
-    heroSubtitle: "Discover the best loaded fries, unique Indomie mixes, and crispy chicken meals in town.",
+    brand: "QUNAIF PIZZA",
+    heroTitle: 'Qunaif... <span class="text-orange-500">Traditional</span> Taste.',
+    heroSubtitle: "The finest Levant pies, gourmet pizzas, and fresh juices since 1998.",
     searchLabel: "Search Menu",
     searchPlaceholder: "What are you craving?",
     noResults: "No items found matching your search.",
     devBy: 'Developed by <a href="https://menutop.vercel.app" target="_blank" rel="noopener noreferrer" class="font-bold text-orange-500 hover:underline">MenuTop</a>',
-    footerDesc: "Mr. Fries... Irresistible Taste",
+    footerDesc: "Qunaif... Traditional Taste",
     currency: "SDG"
   },
   ar: {
-    brand: "مستر فرايز",
-    heroTitle: 'مستر فرايز... طعم <span class="text-orange-500">لا يقاوم</span>.',
-    heroSubtitle: "اكتشف أفضل أنواع الفرايز المحملة، خلطات الاندومي المميزة، ووجبات الكريسبي الشهية.",
+    brand: "قنيف للبيتزا والفطائر",
+    heroTitle: 'قنيف... الطعم <span class="text-orange-500">الشامي</span> الأصيل.',
+    heroSubtitle: "أجود أنواع الفطائر الشامية، البيتزا الفاخرة، والعصائر الطبيعية.",
     searchLabel: "البحث في القائمة",
     searchPlaceholder: "ماذا تشتهي اليوم؟",
     noResults: "لم يتم العثور على نتائج تطابق بحثك.",
     devBy: 'تم التطوير بواسطة <a href="https://menutop.vercel.app" target="_blank" rel="noopener noreferrer" class="font-bold text-orange-500 hover:underline">منيو توب</a>',
-    footerDesc: "مستر فرايز ... طعم لا يقاوم",
+    footerDesc: "قنيف... طعم لا يقاوم",
     currency: "ج.س"
   }
 };
