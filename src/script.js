@@ -25,7 +25,7 @@ const translations = {
   },
   ar: {
     brand: "قنيف للبيتزا والفطائر",
-    heroTitle: 'قنيف... الطعم <span class="text-orange-500">الشامي</span> الأصيل.',
+    heroTitle: 'قنيف... الطعم <span class="text-orange-500">المميز</span> الأصيل.',
     heroSubtitle: "أجود أنواع الفطائر الشامية، البيتزا الفاخرة، والعصائر الطبيعية.",
     searchLabel: "البحث في القائمة",
     searchPlaceholder: "ماذا تشتهي اليوم؟",
