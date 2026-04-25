@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "Category": {
+      "title": "Category",
+      "description": "Menu category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "en": { "type": "string" },
+        "ar": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "en", "ar"]
+    },
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "Menu item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "en": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        },
+        "ar": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        },
+        "image": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "category", "price", "en", "ar"]
+    }
+  },
+  "firestore": {
+    "categories": {
+      "schema": "Category",
+      "description": "Collection of menu categories"
+    },
+    "items": {
+      "schema": "MenuItem",
+      "description": "Collection of menu items"
+    }
+  }
+}

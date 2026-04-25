@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" class="light" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qunaif Admin | لوحة التحكم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/index.css">
+  </head>
+  <body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+    
+    <!-- Login Screen -->
+    <div id="login-screen" class="flex min-h-screen items-center justify-center p-4">
+      <div class="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl dark:bg-slate-900">
+        <h1 class="mb-6 text-center text-3xl font-bold">تسجيل الدخول</h1>
+        <div class="space-y-4">
+          <div>
+            <label class="mb-2 block text-sm font-medium">كلمة السر</label>
+            <input type="password" id="admin-password" class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800" placeholder="أدخل كلمة السر">
+          </div>
+          <button id="login-btn" class="w-full rounded-xl bg-orange-500 py-3 font-bold text-white hover:bg-orange-600 transition-colors">دخول</button>
+          <p id="login-error" class="hidden text-center text-sm text-red-500">كلمة السر غير صحيحة</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden min-h-screen">
+      <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/80">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+          <h1 class="text-xl font-bold">لوحة التحكم - قنيف</h1>
+          <div class="flex gap-4">
+             <button id="init-btn" class="text-sm font-medium text-slate-500 hover:text-orange-500">رفع البيانات الأولية</button>
+             <button id="logout-btn" class="text-sm font-medium text-slate-500 hover:text-red-500">خروج</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-7xl px-4 py-8 md:px-8">
+        <!-- Tabs -->
+        <div class="mb-8 border-b border-slate-200 dark:border-slate-800">
+          <nav class="flex gap-8">
+            <button id="tab-items" class="border-b-2 border-orange-500 px-4 py-4 text-sm font-bold text-orange-500">الأصناف</button>
+            <button id="tab-categories" class="border-b-2 border-transparent px-4 py-4 text-sm font-bold text-slate-500 hover:text-slate-700">التصنيفات</button>
+          </nav>
+        </div>
+
+        <!-- Items View -->
+        <div id="items-view" class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold">إدارة الأصناف</h2>
+            <button id="add-item-btn" class="rounded-xl bg-orange-500 px-6 py-2 font-bold text-white hover:bg-orange-600">إضافة صنف +</button>
+          </div>
+          <div id="items-list" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Items injected here -->
+          </div>
+        </div>
+
+        <!-- Categories View -->
+        <div id="categories-view" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold">إدارة التصنيفات</h2>
+            <button id="add-cat-btn" class="rounded-xl bg-orange-500 px-6 py-2 font-bold text-white hover:bg-orange-600">إضافة تصنيف +</button>
+          </div>
+          <div id="categories-list" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Categories injected here -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal Form -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 p-4">
+      <div class="w-full max-w-2xl rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900 overflow-y-auto max-h-[90vh]">
+        <h3 id="modal-title" class="mb-6 text-2xl font-bold">إضافة صنف جديد</h3>
+        <form id="menu-form" class="space-y-4">
+          <input type="hidden" id="form-id">
+          
+          <div class="grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-medium">الاسم (عربي)</label>
+              <input type="text" id="ar-name" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium">Name (English)</label>
+              <input type="text" id="en-name" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+            </div>
+          </div>
+
+          <div>
+             <label class="mb-2 block text-sm font-medium">التصنيف</label>
+             <select id="item-category" class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+                <!-- Categories will be injected here -->
+             </select>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-medium">السعر</label>
+              <input type="number" id="item-price" step="0.001" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium">رابط الصورة</label>
+              <input type="url" id="item-image" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-medium">الوصف (عربي)</label>
+              <textarea id="ar-desc" rows="3" class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800"></textarea>
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium">Description (English)</label>
+              <textarea id="en-desc" rows="3" class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800"></textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-4 pt-4">
+            <button type="button" id="close-modal" class="rounded-xl px-6 py-3 font-bold text-slate-500 hover:bg-slate-100">إلغاء</button>
+            <button type="submit" class="rounded-xl bg-orange-500 px-8 py-3 font-bold text-white hover:bg-orange-600">حفظ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="cat-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 p-4">
+       <div class="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900">
+          <h3 id="cat-modal-title" class="mb-6 text-2xl font-bold">إضافة تصنيف جديد</h3>
+          <form id="cat-form" class="space-y-4">
+             <input type="hidden" id="cat-form-id">
+             <div>
+                <label class="mb-2 block text-sm font-medium">معرف التصنيف (ID)</label>
+                <input type="text" id="cat-id" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800" placeholder="مثلاً: pizza">
+             </div>
+             <div>
+                <label class="mb-2 block text-sm font-medium">الاسم (عربي)</label>
+                <input type="text" id="cat-ar" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+             </div>
+             <div>
+                <label class="mb-2 block text-sm font-medium">Name (English)</label>
+                <input type="text" id="cat-en" required class="w-full rounded-xl border border-slate-200 p-3 dark:border-slate-800 dark:bg-slate-800">
+             </div>
+             <div class="flex justify-end gap-4 pt-4">
+                <button type="button" id="close-cat-modal" class="rounded-xl px-6 py-3 font-bold text-slate-500 hover:bg-slate-100">إلغاء</button>
+                <button type="submit" class="rounded-xl bg-orange-500 px-8 py-3 font-bold text-white hover:bg-orange-600">حفظ</button>
+             </div>
+          </form>
+       </div>
+    </div>
+
+    <script type="module" src="/src/admin.js"></script>
+  </body>
+</html>
