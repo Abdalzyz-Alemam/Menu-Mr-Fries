@@ -5,48 +5,33 @@
       "description": "Menu category",
       "type": "object",
       "properties": {
-        "id": { "type": "string" },
-        "en": { "type": "string" },
-        "ar": { "type": "string" },
-        "order": { "type": "number" }
+        "name_ar": { "type": "string" },
+        "name_en": { "type": "string" }
       },
-      "required": ["id", "en", "ar"]
+      "required": ["name_ar", "name_en"]
     },
-    "MenuItem": {
-      "title": "MenuItem",
+    "Product": {
+      "title": "Product",
       "description": "Menu item",
       "type": "object",
       "properties": {
-        "id": { "type": "string" },
-        "category": { "type": "string" },
+        "name_product_ar": { "type": "string" },
+        "categoryId": { "type": "string" },
         "price": { "type": "number" },
-        "en": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "description": { "type": "string" }
-          }
-        },
-        "ar": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "description": { "type": "string" }
-          }
-        },
-        "image": { "type": "string" },
-        "order": { "type": "number" }
+        "stock": { "type": "number" },
+        "status": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["id", "category", "price", "en", "ar"]
+      "required": ["name_product_ar", "categoryId", "price"]
     }
   },
   "firestore": {
-    "categories": {
+    "categories/{categoryId}": {
       "schema": "Category",
       "description": "Collection of menu categories"
     },
-    "items": {
-      "schema": "MenuItem",
+    "products/{productId}": {
+      "schema": "Product",
       "description": "Collection of menu items"
     }
   }

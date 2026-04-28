@@ -1,5 +1,11 @@
-import * as menuService from './menuService.js';
 import { menuData as staticMenuData } from './menuData.js';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+import firebaseConfig from '../firebase-applet-config.json';
+
+// --- Firebase Init ---
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 
 // --- State Management ---
 let currentLang = 'ar'; // Default to Arabic
@@ -7,8 +13,40 @@ let currentCategory = 'all';
 let searchQuery = '';
 let isDarkMode = false;
 
-let categories = [{ id: "all", en: "All", ar: "الكل" }];
+let categories = [];
 let items = [];
+
+function setupDataSubscription() {
+  // Subscribe to Categories
+  onSnapshot(collection(db, 'categories'), (snapshot) => {
+    const rawCategories = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if (rawCategories.length > 0) {
+      categories = [{ id: "all", en: "All", ar: "الكل" }, ...rawCategories.map(c => ({ id: c.id, en: c.name_en, ar: c.name_ar }))];
+    } else {
+      categories = [{ id: "all", en: "All", ar: "الكل" }, ...staticMenuData.categories];
+    }
+    renderCategories();
+    renderMenu();
+  });
+
+  // Subscribe to Products
+  onSnapshot(collection(db, 'products'), (snapshot) => {
+    const rawProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    if (rawProducts.length > 0) {
+      items = rawProducts.map(p => ({
+        id: p.id,
+        category: p.categoryId,
+        price: p.price,
+        image: `https://api.dicebear.com/7.x/shapes/svg?seed=${p.id}&backgroundColor=f97316`,
+        ar: { name: p.name_ar, description: "" },
+        en: { name: p.name_ar, description: "" } // Fallback to ar for description if not available
+      }));
+    } else {
+      items = staticMenuData.items;
+    }
+    renderMenu();
+  });
+}
 
 // --- UI Strings ---
 const translations = {
@@ -61,31 +99,9 @@ function init() {
   document.documentElement.dir = 'rtl';
   document.documentElement.lang = 'ar';
   
+  setupDataSubscription();
   setupEventListeners();
   updateUILanguage();
-  
-  // Use static data as fallback if Firestore is empty initially
-  categories = [...staticMenuData.categories];
-  items = [...staticMenuData.items];
-  
-  renderCategories();
-  renderMenu();
-
-  // Switch to Firestore data
-  menuService.subscribeToCategories((data) => {
-    if (data.length > 0) {
-      categories = [{ id: "all", en: "All", ar: "الكل" }, ...data];
-      renderCategories();
-      renderMenu();
-    }
-  });
-
-  menuService.subscribeToItems((data) => {
-    if (data.length > 0) {
-      items = data;
-      renderMenu();
-    }
-  });
   
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     toggleTheme(true);
