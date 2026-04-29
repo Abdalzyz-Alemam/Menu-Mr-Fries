@@ -246,8 +246,12 @@ export default function App() {
   const handleLogin = async () => {
     try {
       await loginWithGoogle();
-    } catch (error) {
-      showToast('فشل تسجيل الدخول', 'error');
+    } catch (error: any) {
+      console.error('Login error detail:', error);
+      const msg = error.code === 'auth/popup-blocked' 
+        ? 'تم حظر النافذة المنبثقة. يرجى السماح بها.' 
+        : 'فشل تسجيل الدخول: ' + (error.message || 'خطأ غير معروف');
+      showToast(msg, 'error');
     }
   };
 
